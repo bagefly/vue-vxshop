@@ -76,7 +76,7 @@ export default {
   methods: {
     getGoodsList () {
       let sort = this.sortFlag ? 1 : -1
-      axios.get('/goods/list', {params: { 'sort': sort }})
+      axios.get('/goods/list', {params: { 'sort': sort, 'priceLevel': this.priceChecked }})
       .then(res => {
         this.GoodsList = res.data.result
         console.log(this.GoodsList)
