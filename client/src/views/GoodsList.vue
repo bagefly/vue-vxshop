@@ -33,26 +33,47 @@
                                     <div class="name">{{item.productName}}</div>
                                     <div class="price">{{item.salePrice}}</div>
                                     <div class="btn-area">
-                                        <a href="javascript:;" class="btn btn--m">加入购物车</a>
+                                        <a href="javascript:;" class="btn btn--m" @click="addCart(item.productId)">加入购物车</a>
                                     </div>
                                 </div>
                             </li>
+                            <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+                            ...
+                            </div>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <Modal :mdShow="mdShowCart">
+      <p slot="message">
+        加入购物车成功
+      </p>
+      <div slot="btnGroup">
+        <a class="btn btn--m" href="javascript:;" @click="mdShowCart = false">关闭</a>
+      </div>
+    </Modal>
   </div>
 </template>
 <script>
 import axios from 'axios'
+import Modal from '@/components/Modal'
+// var count = 0
 export default {
+  components: {
+    Modal
+  },
   data () {
     return {
+      mdShowCart: false,
       GoodsList: '',
       sortFlag: true,
       priceChecked: 'all',
+      data: [],
+      busy: true,
+      page: 1,
+      pagesize: 8,
       priceFilter: [
         {
           startPrice: '0',
@@ -74,12 +95,27 @@ export default {
     }
   },
   methods: {
-    getGoodsList () {
+    getGoodsList (flag) {
       let sort = this.sortFlag ? 1 : -1
-      axios.get('/goods/list', {params: { 'sort': sort, 'priceLevel': this.priceChecked }})
+      let params = {
+        'sort': sort,
+        'priceLevel': this.priceChecked,
+        'page': this.page,
+        'pagesize': this.pagesize
+      }
+      axios.get('/goods/list', {params})
       .then(res => {
-        this.GoodsList = res.data.result
-        console.log(this.GoodsList)
+        if (flag) {
+          this.GoodsList = this.GoodsList.concat(res.data.result)
+          if (res.data.result.length === 0) {
+            this.busy = true
+          } else {
+            this.busy = false
+          }
+        } else {
+          this.GoodsList = res.data.result
+          this.busy = false
+        }
       })
     },
     sortGoods () {
@@ -87,8 +123,28 @@ export default {
       this.getGoodsList()
     },
     setPriceFilter (index) {
+      this.page = 1
       this.priceChecked = index
       this.getGoodsList()
+    },
+    loadMore: function () {
+      this.busy = true
+      console.log('触发到底部了')
+      setTimeout(() => {
+        // for (var i = 0, j = 10; i < j; i++) {
+        //   this.data.push({ name: count++ })
+        // }
+        this.page ++
+        this.getGoodsList(true)
+        this.busy = false
+      }, 1000)
+    },
+    addCart (productId) {
+      axios.post('/goods/addCart', {productId: productId})
+      .then(res => {
+        // alert(res.data.result)
+        this.mdShowCart = true
+      })
     }
   },
   created () {
