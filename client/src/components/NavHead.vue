@@ -3,7 +3,7 @@
     <div class="site-header" style="clear:both;">
         <div class="container">
             <div class="header-logo">
-                <a href="" title=""><img src="../assets/img/logo.png" /></a>
+                <a href="" title=""><img src="" /></a>
             </div>
             <div class="header-nav">
                 <ul class="nav-list">
@@ -36,9 +36,10 @@
                 </a>
             </div>
             <div class="topbar-info J_userInfo" id="ECS_MEMBERZONE">
-                <a class="link" href="user.php" rel="nofollow">登录</a>
+                <span v-text="nickName"></span>
+                <a class="link" href="javascript:;" rel="nofollow" v-if="!nickName" @click="loginModalFlag = true">登录</a>
                 <span class="sep">|</span>
-                <a class="link" href="user.php?act=register" rel="nofollow">注册</a>
+                <a class="link"  href="javascript:;">退出</a>
             </div>
             <!-- </div> -->
         </div>
@@ -46,10 +47,64 @@
             <div class="container"></div>
         </div>
     </div>
+
+<!-- 登录框 -->
+      <div class="md-modal modal-msg md-modal-transition" :class="{'md-show':loginModalFlag}" >
+        <div class="md-modal-inner">
+          <div class="md-top">
+            <div class="md-title">login in</div>
+            <button class="md-close">Close</button>
+          </div>
+          <div class="md-content">
+            <div class="confirm-tips">
+              <div class="error-wrap">
+                <span class="error error-show" >用户名或密码错误</span>
+              </div>
+              <ul>
+                <li class="regi_form_input">
+                  <input type="text" tabindex="1" name="loginname" v-model="userName" placeholder="User Name" data-type="loginname" class="regi_login_input regi_login_input_left">
+                </li>
+                <li class="regi_form_input noMargin">
+                  <i class="icon IconPwd"></i>
+                  <input type="password" tabindex="2" name="password" v-model="userPwd" placeholder="Password" class="regi_login_input regi_login_input_left login-input-no input_text" @keyup.enter="login">
+                </li>
+              </ul>
+
+            </div>
+            <div class="login-wrap">
+              <a href="javascript:;" class="btn-login" >登录</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="md-overlay" v-if="loginModalFlag">
+      </div>
+
+
+
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
-
+  data () {
+    return {
+      nickName: '',
+      userName: '',
+      userPwd: '',
+      loginModalFlag: false
+    }
+  },
+  methods: {
+    login () {
+      axios.post('/users/login', {
+        userName: this.userName,
+        userPwd: this.userPwd
+      }).then(res => {
+        this.nickName = res.data.result.userName
+        this.loginModalFlag = false
+      })
+    }
+  }
 }
 </script>
