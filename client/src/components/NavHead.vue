@@ -3,7 +3,7 @@
     <div class="site-header" style="clear:both;">
         <div class="container">
             <div class="header-logo">
-                <a href="" title=""><img src="" /></a>
+                <a href="" title=""><img src="/static/img/logo.png" /></a>
             </div>
             <div class="header-nav">
                 <ul class="nav-list">
