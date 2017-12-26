@@ -62,7 +62,7 @@ import Modal from '@/components/Modal'
 // var count = 0
 export default {
   components: {
-    Modal,
+    Modal
   },
   data () {
     return {
