@@ -57,16 +57,12 @@
   </div>
 </template>
 <script>
-import NavHead from '@/components/NavHead'
-import BredCrumb from '@/components/BreadCrumb'
 import axios from 'axios'
 import Modal from '@/components/Modal'
 // var count = 0
 export default {
   components: {
     Modal,
-    NavHead,
-    BreadCrumb
   },
   data () {
     return {
