@@ -57,12 +57,16 @@
   </div>
 </template>
 <script>
+import NavHead from '@/components/NavHead'
+import BredCrumb from '@/components/BreadCrumb'
 import axios from 'axios'
 import Modal from '@/components/Modal'
 // var count = 0
 export default {
   components: {
-    Modal
+    Modal,
+    NavHead,
+    BreadCrumb
   },
   data () {
     return {
@@ -103,7 +107,7 @@ export default {
         'page': this.page,
         'pagesize': this.pagesize
       }
-      axios.get('/goods/list', {params})
+      this.$http.get('/goods/list', {params})
       .then(res => {
         if (flag) {
           this.GoodsList = this.GoodsList.concat(res.data.result)
