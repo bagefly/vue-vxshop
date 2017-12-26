@@ -7,7 +7,7 @@ import VueLazyload from 'vue-lazyload'
 import infiniteScroll from 'vue-infinite-scroll'
 import apiConfig from '../config/api.config'
 import Axios from 'axios'
-import VueAxios from 'vue-axious'
+import VueAxios from 'vue-axios'
 
 Vue.use(VueAxios, Axios)
 Axios.defaults.baseURL = apiConfig.baseUrl
