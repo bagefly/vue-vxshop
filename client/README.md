@@ -1,6 +1,6 @@
 # client
 
-> vueshop
+> vue node shopshop 
 
 ## Build Setup
 

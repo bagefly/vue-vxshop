@@ -31,15 +31,15 @@
             <!-- <div class="container-user"> -->
             <div class="topbar-cart" id="ECS_CARTINFO">
                 <a class="cart-mini " href="flow.php">
-                    <i class="iconfont">&#xe60c;</i> 购物车
+                    <router-link to="/cart" class="iconfont">&#xe60c;购物车</router-link>
                     <span class="mini-cart-num J_cartNum" id="hd_cartnum">(0)</span>
                 </a>
             </div>
             <div class="topbar-info J_userInfo" id="ECS_MEMBERZONE">
-                <span v-text="nickName"></span>
-                <a class="link" href="javascript:;" rel="nofollow" v-if="!nickName" @click="loginModalFlag = true">登录</a>
-                <span class="sep">|</span>
-                <a class="link"  href="javascript:;">退出</a>
+                <span v-text="nickName" > </span>
+                <a class="link"  rel="nofollow" v-if="!nickName" @click="loginModalFlag = true">用户登录</a>
+                <span class="sep" v-if="nickName">|</span>
+                <a class="link" @click="logout" v-if="nickName" rel="nofollow">退出</a>
             </div>
             <!-- </div> -->
         </div>
@@ -72,12 +72,12 @@
 
             </div>
             <div class="login-wrap">
-              <a href="javascript:;" class="btn-login" >登录</a>
+              <a href="javascript:;" class="btn-login" @click="login">登录</a>
             </div>
           </div>
         </div>
       </div>
-      <div class="md-overlay" v-if="loginModalFlag">
+      <div class="md-overlay" v-if="loginModalFlag" @click="loginModalFlag = false">
       </div>
 
 
@@ -103,6 +103,19 @@ export default {
       }).then(res => {
         this.nickName = res.data.result.userName
         this.loginModalFlag = false
+      })
+    },
+    checkLogin(){
+      axios.post('/users/checkLogin').then(result => {
+          let res = result.data
+          this.nickName = res.result
+      })
+    },
+    logout(){
+      axios.post('/users/logout').then(result => {
+          let res = result.data
+          this.nickName = ''
+          console.log(res)
       })
     }
   }
