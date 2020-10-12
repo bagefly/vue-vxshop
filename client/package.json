@@ -2,7 +2,7 @@
   "name": "client",
   "version": "1.0.0",
   "description": "vue node shopshop ",
-  "author": "stark <wsd312@163.com>",
+  "author": "bagefly <huangxhe@126.com>",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
