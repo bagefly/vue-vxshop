@@ -4,9 +4,9 @@ var router = express.Router();
 
 var Goods = require('../models/goods');
 var User = require('../models/user');
-var dbOptions = require('./dbConfig');
+const { default: db_options } = require('./dbConfig');
 // 连接数据库
-mongoose.connect("mongodb://" + dbOptions.db_user + ":" + dbOptions.db_pwd + "@" + dbOptions.db_host + ":" + dbOptions.db_port + "/" + dbOptions.db_name,{useMongoClient: true});
+mongoose.connect("mongodb://" + db_options.db_user + ":" + db_options.db_pwd + "@" + db_options.db_host + ":" + db_options.db_port + "/" + db_options.db_name,{useMongoClient: true});
 
 mongoose.connection.on('connected', function() {
     console.log("Mongodb connected success");
