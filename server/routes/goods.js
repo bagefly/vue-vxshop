@@ -18,6 +18,7 @@ mongoose.connect(
     "/" +
     db_options.db_name,
   {
+    useNewUrlParser: db_options.useNewUrlParser,
     useMongoClient: true,
     server: {
       auto_reconnect: true,
