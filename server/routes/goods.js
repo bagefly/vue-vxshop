@@ -43,16 +43,16 @@ router.get("/", function (req, res, next) {
 
 router.get("/list", function (req, res, next) {
   // 根据前端传过来的数值，判断价格区间，然后去数据库里面查询
-  let priceLevel = req.params("priceLevel");
+  let priceLevel = req.params["priceLevel"];
   let currentPage =
-    parseInt(req.params("page")) > 0 ? parseInt(req.params("page")) : 1;
+    parseInt(req.params["page"]) > 0 ? parseInt(req.params["page"]) : 1;
   let pageSize =
-    parseInt(req.params("pageSize")) > 0 ? parseInt(req.params("pageSize")) : 8;
+    parseInt(req.params["pageSize"]) > 0 ? parseInt(req.params["pageSize"]) : 8;
 
   // 要跳过多少条
   let skip = (currentPage - 1) * pageSize;
 
-  let sort = req.params("sort");
+  let sort = req.params["sort"];
   let priceGt = "",
     priceLte = "";
   let param = {};
