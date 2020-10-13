@@ -16,7 +16,8 @@ mongoose.connect(
     ":" +
     db_options.db_port +
     "/" +
-    db_options.db_name,
+    db_options.db_name +
+    "?authSource=admin",
   {
     useMongoClient: true
   }
