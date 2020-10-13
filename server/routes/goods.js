@@ -43,7 +43,6 @@ router.get("/", function (req, res, next) {
 
 router.get("/list", function (req, res, next) {
   // 根据前端传过来的数值，判断价格区间，然后去数据库里面查询
-  console.log(req)
   let priceLevel = req.query["priceLevel"];
   let currentPage =
     parseInt(req.query["page"]) > 0 ? parseInt(req.query["page"]) : 1;
