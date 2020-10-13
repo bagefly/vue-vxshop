@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose');
+// var mongoose = require('mongoose');
 
 var Goods = require('../models/goods');
 var User = require('../models/user');
-
+var dbOptions = require('./dbConfig');
 // 连接数据库
-mongoose.connect('mongodb://root@localhost:27017/shop',{useMongoClient: true});
+mongoose.connect("mongodb://" + dbOptions.db_user + ":" + dbOptions.db_pwd + "@" + dbOptions.db_host + ":" + dbOptions.db_port + "/" + dbOptions.db_name,{useMongoClient: true});
 
 mongoose.connection.on('connected', function() {
     console.log("Mongodb connected success");
