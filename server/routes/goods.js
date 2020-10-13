@@ -18,11 +18,7 @@ mongoose.connect(
     "/" +
     db_options.db_name,
   {
-    useMongoClient: true,
-    server: {
-      auto_reconnect: true,
-      poolSize: 10,
-    },
+    useMongoClient: true
   }
 );
 
