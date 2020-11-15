@@ -16,8 +16,7 @@ mongoose.connect(
     ":" +
     db_options.db_port +
     "/" +
-    db_options.db_name +
-    "?authSource=shop",
+    db_options.db_name,
   {
     useMongoClient: true
   }
